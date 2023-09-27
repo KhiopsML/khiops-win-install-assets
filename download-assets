@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#
+# Set standard bash safeguards
+set -euo pipefail
+
+# Load the asset environment variables (eg. JRE_FILENAME, JRE_URL, JRE_VERSION)
+source ./assets-info.env
+
+# Remove all the assets
+rm -f ./assets/*
+mkdir -p ./assets
+
+# Download each asset
+# Note: if var="VARNAME" then ${!var} expands to the value of the variable VARNAME
+for asset_name in JRE KHIOPS_VIZ KHIOPS_COVIZ MSMPI SAMPLES \
+  KHIOPS_DOC KHIOPS_CC_DOC KHIOPS_TUTO KHIOPS_VIZ_DOC KHIOPS_COVIZ_DOC
+do
+  echo "Download asset ${asset_name}"
+  asset_url_var_name="${asset_name}_URL"
+  asset_filename_var_name="${asset_name}_FILENAME"
+  asset_path="./assets/${!asset_filename_var_name}"
+  wget -O "${asset_path}" "${!asset_url_var_name}"
+done
+
+# Unzip the sample datasets to its directory and remove their original zip
+cd assets
+mkdir $SAMPLES_DIR
+mv $SAMPLES_FILENAME samples
+cd $SAMPLES_DIR
+unzip $SAMPLES_FILENAME
+rm -f $SAMPLES_FILENAME
+cd ..
+
+# Move the documentation to its directory
+mkdir $KHIOPS_DOC_DIR
+for asset_name in KHIOPS_DOC KHIOPS_CC_DOC KHIOPS_TUTO KHIOPS_VIZ_DOC KHIOPS_COVIZ_DOC
+do
+  asset_filename_var_name="${asset_name}_FILENAME"
+  asset_filename="./${!asset_filename_var_name}"
+  mv $asset_filename $KHIOPS_DOC_DIR
+done
+cd ..
+
+# Success message for the user
+echo "All assets downloaded!"

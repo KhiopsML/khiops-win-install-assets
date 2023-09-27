@@ -1,0 +1,24 @@
+---
+name: Release Assets
+on:
+  push:
+    tags: ['*']
+jobs:
+  release-assets:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Create the assets directory
+        run: |
+          ./download-assets
+          cp assets-info.env ./assets
+      - name: Create the release archive
+        run: tar -zcvf khiops-win-install-assets-${{ github.ref_name }}.tar.gz ./assets
+      - name: Upload the release archive
+        uses: ncipollo/release-action@v1.13.0
+        with:
+          artifacts: khiops-win-install-assets-${{ github.ref_name }}.tar.gz
+          token: ${{ secrets.GITHUB_TOKEN }}
