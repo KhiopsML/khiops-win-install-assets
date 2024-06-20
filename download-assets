@@ -25,10 +25,18 @@ done
 # Unzip the sample datasets to its directory and remove their original zip
 cd assets
 mkdir $SAMPLES_DIR
-mv $SAMPLES_FILENAME samples
+mv $SAMPLES_FILENAME $SAMPLES_DIR
 cd $SAMPLES_DIR
 unzip $SAMPLES_FILENAME
 rm -f $SAMPLES_FILENAME
+cd ..
+
+# Unzip the jre to its directory and remove their original zip
+mkdir $JRE_DIR
+mv $JRE_FILENAME $JRE_DIR
+cd $JRE_DIR
+tar xzvf $JRE_FILENAME
+rm -f $JRE_FILENAME
 cd ..
 
 # Move the documentation to its directory
