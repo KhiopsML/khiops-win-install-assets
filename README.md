@@ -16,15 +16,7 @@ There are three variables for each asset:
 - The assets themselves are:
   - `MSMPI`: Microsoft MPI runtime.
   - `JRE`: Java Runtime Environment.
-  - `KHIOPS_VIZ`: Khiops Visualization App.
-  - `KHIOPS_COVIZ`: Khiops Co-Visualization App.
-  - `SAMPLES`: Khiops sample datasets (saved to `SAMPLES_DIR`)
-  - Documentation (saved to `KHIOPS_DOC_DIR`):
-    - `KHIOPS_DOC`: Khiops PDF documentation guide.
-    - `KHIOPS_CC_DOC`: Khiops Coclustering PDF documentation guide.
-    - `KHIOPS_TUTO`: Khiops PDF tutorial.
-    - `KHIOPS_VIZ_DOC`: Khiops Visualization PDF guide.
-    - `KHIOPS_COVIZ_DOC`: Khiops Covisualization PDF guide.
+
 
 Updating the Repository
 -----------------------
